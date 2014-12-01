@@ -102,18 +102,16 @@ Verifies whether the WordPress plugin is installed and has the same version as t
 
 * `callback` (`function( error )`): A callback to invoke when the validation is complete.
 
-#### client.validateTerms( path, callback )
+#### client.validateTerms( callback )
 
 Validates all terms.
 
-* `path`: The path to a JSON file containing taxonomies.
 * `callback` (`function( error )`): A callback to invoke when the taxonomies have been validated.
 
-### client.validatePosts( path, callback )
+### client.validatePosts( callback )
 
 Validates all posts.
 
-* `path`: The path to a directory containing all posts.
 * `callback` (`function( error )`): A callback to invoke when the posts have been validated.
 
 
@@ -126,25 +124,22 @@ Synchonizes all data.
 
 * `callback` (`function( error )`): A callback to invoke when the synchronization is complete.
 
-#### client.syncTerms( path, callback )
+#### client.syncTerms( callback )
 
 Synchronizes all terms.
 
-* `path`: The path to a JSON file containing taxonomies.
 * `callback` (`function( error )`): A callback to invoke when the taxonomies have been synchronized.
 
-#### client.syncPosts( path, callback )
+#### client.syncPosts( callback )
 
 Synchronizes all posts.
 
-* `path`: The path to a directory containing all posts.
 * `callback` (`function( error )`): A callback to invoke when the posts have been synchronized.
 
-#### client.syncResources( path, callback )
+#### client.syncResources( callback )
 
 Synchronizes all resources.
 
-* `path`: The path to a directory containing all resources.
 * `callback` (`function( error )`): A callback to invoke when the resources have been synchronized.
 
 

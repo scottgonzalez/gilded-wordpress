@@ -69,6 +69,10 @@ Client.prototype.forEach = function( items, eachFn, complete ) {
 	async.forEachSeries( items, eachFn.bind( this ), complete.bind( this ) );
 };
 
+Client.prototype.path = function( partial ) {
+	return path.join( this.options.dir, partial );
+};
+
 // Async directory recursion, always walks all files before recursing
 Client.prototype.recurse = function( rootdir, walkFn, complete ) {
 	complete = complete.bind( this );
@@ -180,19 +184,17 @@ Client.prototype.validateXmlrpcVersion = function( callback ) {
 Client.prototype.validate = function( callback ) {
 	callback = callback.bind( this );
 
-	var dir = this.options.dir;
-
 	this.waterfall([
 		function validateXmlrpcVersion( callback ) {
 			this.validateXmlrpcVersion( callback );
 		},
 
 		function validateTerms( callback ) {
-			this.validateTerms( path.join( dir, "taxonomies.json" ), callback );
+			this.validateTerms( callback );
 		},
 
 		function validatePosts( callback ) {
-			this.validatePosts( path.join( dir, "posts/" ), callback );
+			this.validatePosts( callback );
 		}
 	], function( error ) {
 		if ( error ) {
@@ -206,19 +208,17 @@ Client.prototype.validate = function( callback ) {
 Client.prototype.sync = function( callback ) {
 	callback = callback.bind( this );
 
-	var dir = this.options.dir;
-
 	this.waterfall([
 		function syncTerms( callback ) {
-			this.syncTerms( path.join( dir, "taxonomies.json" ), callback );
+			this.syncTerms( callback );
 		},
 
 		function syncPosts( termMap, callback ) {
-			this.syncPosts( path.join( dir, "posts/" ), termMap, callback );
+			this.syncPosts( termMap, callback );
 		},
 
 		function syncResources( callback ) {
-			this.syncResources( path.join( dir, "resources/" ), callback );
+			this.syncResources( callback );
 		}
 	], function( error ) {
 		if ( error ) {
