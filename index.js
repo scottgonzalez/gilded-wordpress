@@ -182,20 +182,10 @@ Client.prototype.validateXmlrpcVersion = function( callback ) {
 };
 
 Client.prototype.validate = function( callback ) {
-	callback = callback.bind( this );
-
 	this.waterfall([
-		function validateXmlrpcVersion( callback ) {
-			this.validateXmlrpcVersion( callback );
-		},
-
-		function validateTerms( callback ) {
-			this.validateTerms( callback );
-		},
-
-		function validatePosts( callback ) {
-			this.validatePosts( callback );
-		}
+		this.validateXmlrpcVersion,
+		this.validateTerms,
+		this.validatePosts
 	], function( error ) {
 		if ( error ) {
 			return callback( error );
@@ -206,20 +196,10 @@ Client.prototype.validate = function( callback ) {
 };
 
 Client.prototype.sync = function( callback ) {
-	callback = callback.bind( this );
-
 	this.waterfall([
-		function syncTerms( callback ) {
-			this.syncTerms( callback );
-		},
-
-		function syncPosts( termMap, callback ) {
-			this.syncPosts( termMap, callback );
-		},
-
-		function syncResources( callback ) {
-			this.syncResources( callback );
-		}
+		this.syncTerms,
+		this.syncPosts,
+		this.syncResources
 	], function( error ) {
 		if ( error ) {
 			if ( error.code === "ECONNREFUSED" ) {
