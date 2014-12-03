@@ -223,7 +223,7 @@ Resources of any type will be uploaded based on the current directory structure.
 ### taxonomies.json
 
 The `taxonomies.json` file defines all used taxonomy terms.
-You can only manage terms, all taxonomies much already exist in WordPress.
+You can only manage terms, all taxonomies must already exist in WordPress.
 
 ```json
 {
