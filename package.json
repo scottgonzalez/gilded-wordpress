@@ -1,7 +1,7 @@
 {
   "name": "gilded-wordpress",
   "description": "Easily synchronize content between the file system and WordPress",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/scottgonzalez/gilded-wordpress",
   "author": {
     "name": "Scott González",
