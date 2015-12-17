@@ -327,7 +327,7 @@ add_filter( 'pre_site_option_fileupload_maxk', function() {
 
 ## License
 
-Copyright 2014 Scott González. Released under the terms of the MIT license.
+Copyright Scott González. Released under the terms of the MIT license.
 
 ---
 
