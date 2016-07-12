@@ -157,9 +157,8 @@ Client.prototype.validateXmlrpcVersion = function( callback ) {
 					"XML-RPC extensions for Gilded WordPress are not installed." ) );
 			}
 			if ( !error.code ) {
-				return callback( new Error( "Unknown error. " +
-					"Please ensure that your database server is running " +
-					"and WordPress is functioning properly." ) );
+				error.message += "\nPlease ensure that your database server is running " +
+					"and WordPress is functioning properly.";
 			}
 
 			// XML-RPC is disabled or bad credentials
