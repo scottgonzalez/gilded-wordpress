@@ -1,9 +1,9 @@
+var fs = require( "fs" );
 var path = require( "path" );
 var util = require( "util" );
 var crypto = require( "crypto" );
 var wordpress = require( "wordpress" );
 var async = require( "async" );
-var glob = require( "glob" );
 var version = require( "./package" ).version;
 
 exports.createClient = createClient;
@@ -77,19 +77,29 @@ Client.prototype.path = function( partial ) {
 Client.prototype.recurse = function( rootdir, walkFn, complete ) {
 	complete = complete.bind( this );
 
-	glob( rootdir + "/*", { mark: true }, function( error, entries ) {
+	try {
+		fs.statSync( rootdir );
+	} catch ( e ) {
+		// Directories are considered optional, especially if inherited
+		// from default setttings. Treat non-existant dir as empty dir.
+		complete();
+		return;
+	}
+
+	fs.readdir( rootdir, { withFileTypes: true }, function( error, entries ) {
 		if ( error ) {
 			return complete( error );
 		}
 
 		var directories = [];
-		var files = entries.filter(function( entry ) {
-			if ( /\/$/.test( entry ) ) {
-				directories.push( entry );
-				return false;
+		var files = [];
+		entries.forEach(function( entry ) {
+			var fullPath = path.join( rootdir, entry.name );
+			if ( entry.isDirectory() ) {
+				directories.push( fullPath );
+			} else {
+				files.push( fullPath );
 			}
-
-			return true;
 		});
 
 		this.forEach( files, walkFn, function( error ) {
