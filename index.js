@@ -176,8 +176,14 @@ Client.prototype.validateXmlrpcVersion = function( callback ) {
 			return callback( error );
 		}
 
-		if ( xmlrpcVersion !== version ) {
-			return callback( new Error( "Mismatching versions for Gilded WordPress. " +
+		// The server should have all capabilities expected by this client.
+		// The server must therefore be in the "^x.y.z" semver-range, whereby it
+		// implements the same major version, and the same (or newer) minor version.
+		var xmlrpcVersionParts = xmlrpcVersion.split( ".", 3 ).map( parseFloat );
+		var clientVersionParts = version.split( ".", 3 ).map( parseFloat );
+
+		if ( !( xmlrpcVersionParts[0] === clientVersionParts[0] && xmlrpcVersionParts[1] >= clientVersionParts[1] ) ) {
+			return callback( new Error( "Incompatible versions for Gilded WordPress. " +
 				"Version " + version + " is installed as a Node.js module, " +
 				"but the WordPress server is running version " + xmlrpcVersion + "." ) );
 		}
