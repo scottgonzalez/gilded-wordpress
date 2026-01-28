@@ -1,6 +1,5 @@
 var fs = require( "fs" );
 var path = require( "path" );
-var util = require( "util" );
 var crypto = require( "crypto" );
 var wordpress = require( "wordpress" );
 var async = require( "async" );
@@ -128,11 +127,11 @@ Client.prototype.createChecksum = (function() {
 			return String( obj );
 		}
 
-		if ( util.isDate( obj ) ) {
+		if ( obj instanceof Date ) {
 			return obj.toGMTString();
 		}
 
-		if ( util.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 			return obj.map(function( item ) {
 				return flatten( item );
 			}).join( "," );
