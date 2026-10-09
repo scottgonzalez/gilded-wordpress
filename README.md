@@ -299,12 +299,6 @@ Depending on what resources you're uploading, you may need to change some WordPr
 Here are a few settings that might help:
 
 ```php
-// Disable more restrictive multisite upload settings.
-remove_filter( 'upload_mimes', 'check_upload_mimes' );
-
-// Give unfiltered upload ability to super admins.
-define( 'ALLOW_UNFILTERED_UPLOADS', true );
-
 // Allow additional file types.
 add_filter( 'upload_mimes', function( $mimes ) {
 	$mimes[ 'eot' ] = 'application/vnd.ms-fontobject';
@@ -312,14 +306,8 @@ add_filter( 'upload_mimes', function( $mimes ) {
 	$mimes[ 'ttf' ] = 'application/x-font-ttf';
 	$mimes[ 'woff' ] = 'application/font-woff';
 	$mimes[ 'xml' ] = 'text/xml';
-	$mimes[ 'php' ] = 'application/x-php';
 	$mimes[ 'json' ] = 'application/json';
 	return $mimes;
-});
-
-// Increase file size limit to 1GB.
-add_filter( 'pre_site_option_fileupload_maxk', function() {
-	return 1024 * 1024;
 });
 ```
 
